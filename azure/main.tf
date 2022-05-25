@@ -220,8 +220,9 @@ resource "azurerm_network_interface" "linux" {
   }
   
   tags = {
-     hostname = local.config_file.linux_server_configuration[count.index].name
-     externalIP = azurerm_public_ip.linux-servers[count.index].ip_address     
+     name = local.config_file.linux_server_configuration[count.index].name
+     externalIP = azurerm_public_ip.linux-servers[count.index].ip_address
+     sku = local.config_file.linux_server_configuration[count.index].sku     
   }
 }
 # Associate IP and Security Group with our Linux Servers
@@ -297,8 +298,9 @@ resource "azurerm_network_interface" "workstation" {
     public_ip_address_id = azurerm_public_ip.windows-workstations[count.index].id
   }
     tags = {
-     hostname = local.config_file.windows_workstation_configuration[count.index].name
+     name = local.config_file.windows_workstation_configuration[count.index].name
      externalIP = azurerm_public_ip.windows-workstations[count.index].ip_address
+     sku = local.config_file.windows_workstation_configuration[count.index].sku
   }
 }
 # Associate IP and Security Group with our workstations
@@ -345,7 +347,7 @@ resource "azurerm_virtual_machine" "workstation" {
   }
   
   os_profile {
-    computer_name  = local.config_file.windows_workstation_configuration[count.index].name
+    computer_name  = local.config_file.windows_workstation_configuration[count.index].os
     admin_username = local.config_file.local_admin_credentials.username
     admin_password = local.config_file.local_admin_credentials.password
   }
@@ -380,8 +382,9 @@ resource "azurerm_network_interface" "winserver" {
     public_ip_address_id = azurerm_public_ip.windows-servers[count.index].id
   }
     tags = {
-     hostname = local.config_file.windows_server_configuration[count.index].name
+     name = local.config_file.windows_server_configuration[count.index].name
      externalIP = azurerm_public_ip.windows-servers[count.index].ip_address
+     sku = local.config_file.windows_server_configuration[count.index].sku
   }
 }
 # Associate IP and Security Group with Windows Servers
@@ -429,7 +432,7 @@ resource "azurerm_virtual_machine" "winservers" {
   }
   
   os_profile {
-    computer_name  = local.config_file.windows_server_configuration[count.index].name
+    computer_name  = local.config_file.windows_server_configuration[count.index].os
     admin_username = local.config_file.local_admin_credentials.username
     admin_password = local.config_file.local_admin_credentials.password
   }
@@ -455,18 +458,18 @@ depends_on = [azurerm_resource_group.resourcegroup, azurerm_network_interface.wo
 
 Network Setup:
   Windows Workstations:
-  %{ for index, x in azurerm_network_interface.workstation.*.tags[*] ~}
-  ${replace(replace(replace(replace(replace(replace(replace(jsonencode(x), "\"", ""), ":", " : "),"externalIP","External IP"),"hostname","OS"),"{",""),"}",""),","," , ")}
+  %{ for index, x in azurerm_network_interface.workstation.* ~}
+  External IP: ${x.tags["externalIP"]} OS: ${x.tags["name"]}
   %{ endfor }
   
   Windows Servers:
-  %{ for index, x in azurerm_network_interface.winserver.*.tags[*] ~}
-  ${replace(replace(replace(replace(replace(replace(replace(jsonencode(x), "\"", ""), ":", " : "),"externalIP","External IP"),"hostname","OS"),"{",""),"}",""),","," , ")}
+  %{ for index, x in azurerm_network_interface.winserver.* ~}
+  External IP: ${x.tags["externalIP"]} OS: ${x.tags["name"]}
   %{ endfor }
 
   Linux Servers:
-  %{ for index, x in azurerm_network_interface.linux.*.tags[*] ~}
-  ${replace(replace(replace(replace(replace(replace(replace(jsonencode(x), "\"", ""), ":", " : "),"externalIP","External IP"),"hostname","OS"),"{",""),"}",""),","," , ")}
+  %{ for index, x in azurerm_network_interface.linux.* ~}
+  External IP: ${x.tags["externalIP"]} OS: ${x.tags["name"]}
   %{ endfor }
   
 Remote Access:
