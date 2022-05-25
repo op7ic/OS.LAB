@@ -172,7 +172,59 @@ Internally the following static IP ranges are used for this enviroment in the de
 Once OS.LAB is constructed, Terraform will print out actual location of the systems and associated credentials. An example output from AWS Terraform execution can be found below.
 
 ```
+Network Setup:
 
+Windows Servers:
+	External IP : xxx.xxx.xxx.xxx OS: Server 2012
+	External IP : xxx.xxx.xxx.xxx OS: Server 2012R2
+	External IP : xxx.xxx.xxx.xxx OS: Server 2016
+	External IP : xxx.xxx.xxx.xxx OS: Server 2019
+	External IP : xxx.xxx.xxx.xxx OS: Server 2022
+
+
+Unix/Linux Servers:
+	External IP : xxx.xxx.xxx.xxx OS: Debian 11
+	External IP : xxx.xxx.xxx.xxx OS: Debian 10
+	External IP : xxx.xxx.xxx.xxx OS: Debian 9
+	External IP : xxx.xxx.xxx.xxx OS: CentOS Linux 8
+	External IP : xxx.xxx.xxx.xxx OS: CentOS Linux 7
+	External IP : xxx.xxx.xxx.xxx OS: Ubuntu 12.04 LTS
+	External IP : xxx.xxx.xxx.xxx OS: Ubuntu 14.04 LTS
+	External IP : xxx.xxx.xxx.xxx OS: Ubuntu 16.04 LTS
+	External IP : xxx.xxx.xxx.xxx OS: Ubuntu 18.04 LTS
+	External IP : xxx.xxx.xxx.xxx OS: Ubuntu 19.04
+	External IP : xxx.xxx.xxx.xxx OS: Ubuntu 20.04 LTS
+	External IP : xxx.xxx.xxx.xxx OS: Red Hat 6.1 x86_64
+	External IP : xxx.xxx.xxx.xxx OS: Red Hat 6.1 i386
+	External IP : xxx.xxx.xxx.xxx OS: Red Hat 6.10 x86_64
+	External IP : xxx.xxx.xxx.xxx OS: Red Hat 7.9
+	External IP : xxx.xxx.xxx.xxx OS: Red Hat 8.6 x86_64
+
+
+Remote Access:
+  RDP to Windows Workstation:
+	xfreerdp /v:xxx.xxx.xxx.xxx /u:Administrator '/p:OsLabTesting0%%%' +clipboard /cert-ignore
+	[...]
+
+
+  SSH to Linux Servers:
+	ssh -o StrictHostKeyChecking=accept-new admin@xxx.xxx.xxx.xxx -i sshkey.openssh
+	ssh -o StrictHostKeyChecking=accept-new admin@xxx.xxx.xxx.xxx -i sshkey.openssh
+	ssh -o StrictHostKeyChecking=accept-new admin@xxx.xxx.xxx.xxx -i sshkey.openssh
+	[...]
+
+
+Credentials:
+  Local Admin on Windows Servers:
+	Username: Administrator
+	Password: OsLabTesting0%%%
+  Linux SSH login key (randomly generated, save in file):
+	Username: See above for specific username.
+	SSH Key:
+
+-----BEGIN RSA PRIVATE KEY-----
+[...]
+-----END RSA PRIVATE KEY-----
 ```
 
 # Terraform Output - Azure
@@ -238,7 +290,6 @@ Credentials:
   Linux SSH Login:
 	oslab OsLabTesting0%%%
 ```
-
 
 # Contributing
 

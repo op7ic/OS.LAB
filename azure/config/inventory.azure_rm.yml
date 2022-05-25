@@ -1,0 +1,20 @@
+# Excellent idea on how to run this https://www.azurecitadel.com/packeransible/dynamic/
+plugin: azure.azcollection.azure_rm
+auth_source: auto
+
+include_vm_resource_groups:
+ - os-lab
+ 
+# This needs to correspond to tags added to each host in 'main.tf' file 
+conditional_groups:
+  win_server: "tags.kind == 'os.lab-windows-server'"
+  win_workstation: "tags.kind == 'os.lab-windows-workstation'"
+  lin_server: "tags.kind == 'os.lab-linux-server'"
+
+keyed_groups:
+- prefix: tag
+  key: tags
+  
+exclude_host_filters:
+# excludes hosts that are powered off
+- powerstate != 'running'

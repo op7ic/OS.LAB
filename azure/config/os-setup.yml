@@ -1,0 +1,184 @@
+############################################################
+# Instructions: Use options below to configure your deployment enviroment
+############################################################
+
+# Firewall setup
+enable_windows_firewall: false
+
+# Credentials of the local admin/root created on workstation and servers. 
+local_admin_credentials:
+  username: oslab
+  password: OsLabTesting0%%%
+
+############################################################
+# Host Sizing. See https://docs.microsoft.com/en-us/azure/cloud-services/cloud-services-sizes-specs for details
+############################################################
+
+# az vm image list --publisher MicrosoftWindowsDesktop --all -o table
+# NOTE: Name for the workstation is used as a tag to display OS version
+windows_workstation_configuration:
+- name: Windows11
+  os: Windows-11
+  sku: win11-21h2-ent
+  vmsize: Standard_DC2s_v2
+  publisher: MicrosoftWindowsDesktop
+- name: Windows10
+  os: Windows-10
+  sku: win10-21h2-ent
+  vmsize: Standard_DS2_v2
+  publisher: MicrosoftWindowsDesktop
+- name: Windows7
+  os: Windows-7
+  sku: win7-enterprise
+  vmsize: Standard_DS2s_v3
+  publisher: MicrosoftWindowsDesktop
+
+# az vm image list --publisher WindowsServer --all -o table
+# NOTE: Name for the server is used as a tag to display OS version
+windows_server_configuration:
+- name: 2008Server
+  os: WindowsServer
+  sku: 2008-R2-SP1 
+  vmsize: Standard_A2_v2
+  publisher: MicrosoftWindowsServer
+- name: 2012DataCen
+  os: WindowsServer
+  sku: 2012-Datacenter 
+  vmsize: Standard_A2_v2
+  publisher: MicrosoftWindowsServer
+- name: 2012R2DataCen
+  os: WindowsServer
+  sku: 2012-R2-Datacenter
+  vmsize: Standard_A2_v2
+  publisher: MicrosoftWindowsServer
+- name: 2016DataCen
+  os: WindowsServer
+  sku: 2016-Datacenter
+  vmsize: Standard_A2_v2
+  publisher: MicrosoftWindowsServer
+- name: 2019DataCen
+  os: WindowsServer
+  sku: 2019-Datacenter
+  vmsize: Standard_A2_v2
+  publisher: MicrosoftWindowsServer
+- name: 2022DataCen
+  os: WindowsServer
+  sku: 2022-datacenter
+  vmsize: Standard_A2_v2
+  publisher: MicrosoftWindowsServer
+
+# NOTE: Name for the server is used as a tag to display OS version
+linux_server_configuration:
+# Debian - az vm image list --publisher Debian --all -o table
+- name: Debian10
+  os: debian-10
+  sku: 10
+  vmsize: Standard_A2_v2
+  publisher: Debian
+- name: Debian11
+  os: debian-11
+  sku: 11
+  vmsize: Standard_A2_v2
+  publisher: Debian
+- name: DebianSid
+  os: debian-sid-daily
+  sku: sid
+  vmsize: Standard_A2_v2
+  publisher: Debian
+# Red Hat - az vm image list --publisher RedHat --all -o table
+- name: RHEL-6.10
+  os: RHEL
+  sku: 6.10
+  vmsize: Standard_A2_v2
+  publisher: RedHat
+- name: RHEL-7.2
+  os: RHEL
+  sku: 7.2
+  vmsize: Standard_A2_v2
+  publisher: RedHat
+- name: RHEL-7.3
+  os: RHEL
+  sku: 7.3
+  vmsize: Standard_A2_v2
+  publisher: RedHat
+- name: RHEL-7.4
+  os: RHEL
+  sku: 7.4
+  vmsize: Standard_A2_v2
+  publisher: RedHat
+- name: RHEL-7.5
+  os: RHEL
+  sku: 7.5
+  vmsize: Standard_A2_v2
+  publisher: RedHat
+- name: RHEL-7.6
+  os: RHEL
+  sku: 7.6
+  vmsize: Standard_A2_v2
+  publisher: RedHat
+- name: RHEL-7.7
+  os: RHEL
+  sku: 7.7
+  vmsize: Standard_A2_v2
+  publisher: RedHat
+- name: RHEL-7.8
+  os: RHEL
+  sku: 7.8
+  vmsize: Standard_A2_v2
+  publisher: RedHat
+- name: RHEL-7.9
+  os: RHEL
+  sku: 7_9
+  vmsize: Standard_A2_v2
+  publisher: RedHat
+- name: RHEL-8
+  os: RHEL
+  sku: 8
+  vmsize: Standard_A2_v2
+  publisher: RedHat
+- name: RHEL-8.1
+  os: RHEL
+  sku: 8.1
+  vmsize: Standard_A2_v2
+  publisher: RedHat
+- name: RHEL-8.2
+  os: RHEL
+  sku: 8.2
+  vmsize: Standard_A2_v2
+  publisher: RedHat
+- name: RHEL-8.4
+  os: RHEL
+  sku: 8_4
+  vmsize: Standard_A2_v2
+  publisher: RedHat
+- name: RHEL-8.5
+  os: RHEL
+  sku: 8_5
+  vmsize: Standard_A2_v2
+  publisher: RedHat
+# Ubuntu - az vm image list --publisher Canonical --all -o table
+- name: Ubuntu-12.04.3-LTS
+  os: UbuntuServer
+  sku: 12.04.3-LTS
+  vmsize: Standard_A2_v2
+  publisher: Canonical
+- name: Ubuntu-14.04.0-LTS
+  os: UbuntuServer
+  sku: 14.04.0-LTS
+  vmsize: Standard_A2_v2
+  publisher: Canonical
+- name: Ubuntu-16.04-LTS
+  os: UbuntuServer
+  sku: 16.04-LTS
+  vmsize: Standard_A2_v2
+  publisher: Canonical
+- name: Ubuntu-18.04-LTS
+  os: UbuntuServer
+  sku: 18.04-LTS
+  vmsize: Standard_A2_v2
+  publisher: Canonical
+- name: Ubuntu-19.04
+  os: UbuntuServer
+  sku: 19.04
+  vmsize: Standard_A2_v2
+  publisher: Canonical

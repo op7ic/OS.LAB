@@ -1,0 +1,142 @@
+############################################################
+# Instructions: Use options below to configure your deployment enviroment
+############################################################
+
+# Firewall setup
+enable_windows_firewall: false
+
+# Credentials of the local admin/root created on windows servers. 
+local_admin_credentials:
+  password: OsLabTesting0%%%
+
+# Supported systems - https://docs.aws.amazon.com/systems-manager/latest/userguide/prereqs-operating-systems.html
+# aws ec2 describe-images --owners amazon --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values=*Windows_Server*English*Base* --query 'Images[].{ID:ImageId,Name:Name,Created:CreationDate}' --region us-east-1
+windows_server_configuration:
+- name: Server 2012
+  ami: ami-0083e48bcbe84f829
+  os: EC2LaunchV2-Windows_Server-2012_RTM-English-Full-Base-2022.03.09 
+  size: t2.medium
+- name: Server 2012R2
+  ami: ami-0ffa28e4e0d824e22
+  os: EC2LaunchV2-Windows_Server-2012_R2_RTM-English-Full-Base-2022.02.10
+  size: t2.medium
+- name: Server 2016
+  ami: ami-010854800a95d4411
+  os: EC2LaunchV2-Windows_Server-2016-English-Full-Base-2022.03.09
+  size: t2.medium
+- name: Server 2019
+  ami: ami-024e06c20d843f537
+  os: EC2LaunchV2-Windows_Server-2019-English-Core-Base-2022.04.13
+  size: t2.medium
+- name: Server 2022
+  ami: ami-0e2c8caa770b20b08
+  os: Windows_Server-2022-English-Full-Base-2022.05.11
+  size: t2.medium
+# - name: Server 20H2
+  # ami: ami-0154e663145faa9a0
+  # name: Windows_Server-20H2-English-Core-Base-2022.05.11
+  # size: t2.medium
+   
+linux_server_configuration:
+# Usernames for each instance are taken from https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connection-prereqs.html
+# Debian - image list https://wiki.debian.org/Amazon%20EC2
+- name: Debian 11
+  os: debian-11-amd64-20220503-998
+  ami: ami-09a41e26df464c548
+  size: t2.medium
+  username: admin
+- name: Debian 10
+  os: debian-10-amd64-20220310-944
+  ami: ami-0c56354b8ab6b3f6b
+  size: t2.medium
+  username: admin
+- name: Debian 9
+  os: debian-stretch-hvm-x86_64-gp2-2022-03-25-58319
+  ami: ami-01b7be8d0c978c77c
+  size: t2.medium
+  username: admin
+# CentOS - image list https://wiki.centos.org/Cloud/AWS
+- name: CentOS Linux 8
+  os: 8.4.2105
+  ami: ami-05d7cb15bfbf13b6d
+  size: t2.medium
+  username: centos or ec2-user
+- name: CentOS Linux 7
+  os: 7.9.2009
+  ami: ami-00e87074e52e6c9f9
+  size: t2.medium
+  username: centos or ec2-user
+# Ubuntu - image list https://cloud-images.ubuntu.com/locator/ec2/
+- name: Ubuntu 12.04 LTS
+  os: 12.04 LTS
+  ami: ami-86452990
+  size: m3.medium
+  username: ubuntu
+- name: Ubuntu 14.04 LTS
+  os: 14.04 LTS
+  ami: ami-0e812bbd44d3f6087
+  size: m3.medium
+  username: ubuntu 
+- name: Ubuntu 16.04 LTS
+  os: 16.04 LTS
+  ami: ami-06ae0e97bcb59038c
+  size: m3.medium 
+  username: ubuntu
+- name: Ubuntu 18.04 LTS
+  os: 18.04 LTS
+  ami: ami-0d73480446600f555
+  size: m3.medium
+  username: ubuntu
+- name: Ubuntu 19.04
+  os: 19.04
+  ami: 	ami-0ff7189cf12ed8eb6
+  size: m3.medium
+  username: ubuntu
+- name: Ubuntu 20.04 LTS
+  os: 20.04 LTS
+  ami: ami-01f18be4e32df20e2
+  size: m3.medium
+  username: ubuntu  
+# Red Hat
+# aws ec2 describe-images --owners 309956199498 --query 'sort_by(Images, &CreationDate)[*].[CreationDate,Name,ImageId]' --filters "Name=name,Values=RHEL-8*" --region us-east-1 --output table
+# aws ec2 describe-images --owners 309956199498 --query 'sort_by(Images, &CreationDate)[*].[CreationDate,Name,ImageId]' --filters "Name=name,Values=RHEL-6*" --region us-east-1 --output table
+# aws ec2 describe-images --owners 309956199498 --query 'sort_by(Images, &CreationDate)[*].[CreationDate,Name,ImageId]' --filters "Name=name,Values=RHEL-7*" --region us-east-1 --output table
+- name: Red Hat 6.1 x86_64
+  os: RHEL-6.1_GA-x86_64-5-Hourly2
+  ami: ami-956a03fc
+  size: m3.medium
+  username: ec2-user  
+- name: Red Hat 6.1 i386
+  os: RHEL-6.1_GA-i386-5-Hourly2 
+  ami: ami-196a0370
+  size: m1.small
+  username: ec2-user or root
+- name: Red Hat 6.10 x86_64
+  os: RHEL-6.10_HVM-20190524-x86_64-0-Hourly2-GP2
+  ami: ami-059897226432ec347
+  size: m3.medium 
+  username: ec2-user or root  
+- name: Red Hat 7.9
+  os: RHEL-7.9_HVM-20220512-x86_64-1-Hourly2-GP2
+  ami: ami-004fac3d4533a2541 
+  size: m3.medium 
+  username: ec2-user or root
+- name: Red Hat 8.6 x86_64
+  os: RHEL-8.6.0_HVM-20220503-x86_64-2-Hourly2-GP2
+  ami: ami-06640050dc3f556bb
+  size: m3.medium
+  username: ec2-user or root 
+# Mac - TBD in the future
+# - name: macOS Monterey 12.3.1
+  # os: macOS Monterey 12.3.1
+  # ami: ami-025e8ae92c7b6ff27 
+  # size: mac1.metal 
+# - name: macOS Big Sur 11.6.5
+  # os: macOS Big Sur 11.6.5
+  # ami: ami-0dddc64bc72740146 
+  # size: mac1.metal
+# - name: macOS Catalina 10.15.7
+  # os: macOS Catalina 10.15.7
+  # ami: ami-09312d8c64eda75c1  
+  # size: mac1.metal
+
