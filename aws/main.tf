@@ -265,23 +265,23 @@ Network Setup:
 
 Windows Servers:
   %{ for index, x in aws_instance.windows-servers.* ~}
-  External IP : ${replace(jsonencode(x.public_ip), "\"", "")} OS: ${replace(jsonencode(x.tags_all["Name"]), "\"", "")}
+  External IP : ${x.public_ip} OS: ${x.tags_all["Name"]}
   %{ endfor }
 
 Unix/Linux Servers:
   %{ for index, x in aws_instance.linux-servers.* ~}
-  External IP : ${replace(jsonencode(x.public_ip), "\"", "")} OS: ${replace(jsonencode(x.tags_all["Name"]), "\"", "")}
+  External IP : ${x.public_ip} OS: ${x.tags_all["Name"]}
   %{ endfor }
 
 Remote Access:
   RDP to Windows Workstation:
   %{ for index, x in aws_instance.windows-servers.* ~}
-  xfreerdp /v:${replace(jsonencode(x.public_ip), "\"", "")} /u:Administrator '/p:${local.config_file.local_admin_credentials.password}' +clipboard /cert-ignore
+  xfreerdp /v:${x.public_ip} /u:Administrator '/p:${local.config_file.local_admin_credentials.password}' +clipboard /cert-ignore
   %{ endfor }
 
   SSH to Linux Servers: 
   %{ for index, x in aws_instance.linux-servers.* ~}
-  ssh -o StrictHostKeyChecking=accept-new ${x.tags_all["username"]}\@${x.public_ip} -i sshkey.openssh
+  ssh -o StrictHostKeyChecking=accept-new ${x.tags_all["username"]}@${x.public_ip} -i sshkey.openssh
   %{ endfor }  
   
 Credentials:
