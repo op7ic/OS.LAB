@@ -66,7 +66,7 @@ sudo apt install python3 python3-pip pywinrm requests
 
 # Building and Deploying OS.LAB
 
-Once all the [prerequisites](#Prerequisites) are installed, perform the following series of steps:
+Once all the [prerequisites](#prerequisites-for-azure) are installed, perform the following series of steps:
 ```
 # Log in to Azure or AWS from command line to ensure that the access token is valid or credentials are added for AWS:
 az login or use aws configure 
