@@ -1,4 +1,3 @@
-# OS.LAB
 
 <p align="center">
   <img src="https://github.com/op7ic/OS.LAB/blob/main/documentation/pic/logo.PNG?raw=true" alt="OS.LAB"/>
