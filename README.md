@@ -233,7 +233,7 @@ Once OS.LAB is constructed, Terraform will print out the actual location of the 
 ```
 Network Setup:
   Windows Workstations:
-	External IP : xxx.xxx.xxx.xxx, OS : Windows11
+	External IP : xxx.xxx.xxx.xxx , OS : Windows11
 	External IP : xxx.xxx.xxx.xxx , OS : Windows10
 	External IP : xxx.xxx.xxx.xxx , OS : Windows7
 
