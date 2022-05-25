@@ -5,11 +5,11 @@
 
 # Purpose
 
-This project contains a set of **Terraform** scripts to create an lab with different versions of popular operating systems. The goal of this project is to provide red/blue teams, developers and IT teams with the ability to deploy an ad-hoc OS lab to test attacks, payload operability, compatbility of tools and forensic artifacts on various versions of operating systems with minimal overhead.
+This project contains a set of **Terraform** scripts to create a lab with different versions of popular operating systems (OS). The goal of this project is to provide red/blue teams, developers and IT teams with the ability to deploy an ad-hoc OS lab to test attacks, payload operability, compatbility of tools and forensic artifacts on various versions of operating systems with minimal overhead.
 
 **NOTE**: This lab is deliberately designed to be insecure. Please do not connect this system to any network you care about. 
 
-**NOTE**: Cloud providers typically limit the number of IPs, CPUs and other resources for each subscription. You might need to open up an support ticker to extend quota to deploy complete lab. Please visit specific vendor help pages to see what kind of limits are applied on the account or regions - [Azure](https://docs.microsoft.com/en-us/azure/azure-portal/supportability/quotas-overview) and [AWS](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html).
+**NOTE**: Cloud providers typically limit the number of IPs, CPUs and other resources for each subscription. You might need to open up a support ticket to extend quota to deploy the complete lab. Please visit specific vendor help pages to see what kind of limits are applied on the account or regions - [Azure](https://docs.microsoft.com/en-us/azure/azure-portal/supportability/quotas-overview) and [AWS](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html).
 
 ---
 
@@ -83,49 +83,49 @@ terraform apply -auto-approve
 # Once done, destroy your lab using the following command:
 terraform destroy -auto-approve
 
-# If you would like to time the execution us following command:
+# If you would like to time the execution use the following command:
 start_time=`date +%s` && terraform apply -auto-approve && end_time=`date +%s` && echo execution time was `expr $end_time - $start_time` s
 ```
 
-# Deploying different OS versions or limiting number of created hosts
+# Deploying different OS versions or limiting the number of created hosts
 
-A global YAML config file, [Azure os-setup.yml](azure/config/os-setup.yml) or [AWS os-setup.yml](aws/config/os-setup.yml), set the type of operating system, SKU, AMI and VM size used for the deployment of individual VMs. 
+A global YAML config file, [Azure os-setup.yml](azure/config/os-setup.yml) or [AWS os-setup.yml](aws/config/os-setup.yml), sets the type of operating system, SKU, AMI and VM size used for the deployment of individual VMs. 
 
-Commands ```az vm image list``` (Azure) or ```aws ec2 describe-images``` (AWS) can be used to identify various OS versions so that global operating system file ([Azure os-setup.yml](azure/config/os-setup.yml) or [AWS os-setup.yml](aws/config/os-setup.yml) can be modified with correspodning SKU or AMI. Examples of commands helping to identify specific AMI/SKU can be found below.
+Commands ```az vm image list``` (Azure) or ```aws ec2 describe-images``` (AWS) can be used to identify various OS versions so that global operating system file ([Azure os-setup.yml](azure/config/os-setup.yml) or [AWS os-setup.yml](aws/config/os-setup.yml) can be modified with the correspodning SKU or AMI. Examples of commands helping to identify specific AMI/SKU can be found below.
 
 ```
 # Azure
 
 # List all Windows workstation SKUs and images
 az vm image list --publisher MicrosoftWindowsDesktop --all -o table
-# List all Windows servers SKUs and images
+# List all Windows server SKUs and images
 az vm image list --publisher WindowsServer --all -o table
-# List all Debian servers SKUs and images
+# List all Debian server SKUs and images
 az vm image list --publisher Debian --all -o table
-# List all RedHat servers SKUs and images
+# List all RedHat server SKUs and images
 az vm image list --publisher RedHat --all -o table
-# List all Canonical servers SKUs and images
+# List all Canonical server SKUs and images
 az vm image list --publisher Canonical --all -o table
 
 # AWS
 
-# List all Windows Server AMIs
+# List all Windows server AMIs
 aws ec2 describe-images --owners amazon --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values=*Windows_Server*English*Base* --query 'Images[].{ID:ImageId,Name:Name,Created:CreationDate}' --region us-east-1
-# List all RedHat Server AMIs
+# List all RedHat server AMIs
 aws ec2 describe-images --owners 309956199498 --query 'sort_by(Images, &CreationDate)[*].[CreationDate,Name,ImageId]' --filters "Name=name,Values=RHEL-*" --region us-east-1 --output table
-# List all Ubuntu Server AMIs or use https://cloud-images.ubuntu.com/locator/ec2/
+# List all Ubuntu server AMIs or use https://cloud-images.ubuntu.com/locator/ec2/
 aws ec2 describe-images --filters Name=architecture,Values=x86_64 Name=name,Values=*Ubuntu* --query 'Images[].{ID:ImageId,Name:Name,Created:CreationDate}' --region us-east-1
-# List all CentOS Server AMIs or use https://wiki.centos.org/Cloud/AWS
+# List all CentOS server AMIs or use https://wiki.centos.org/Cloud/AWS
 aws ec2 describe-images --filters Name=architecture,Values=x86_64 Name=name,Values=*CentOS* --query 'Images[].{ID:ImageId,Name:Name,Created:CreationDate}' --region us-east-1
-# List all Debian Server AMIs or use https://wiki.debian.org/Amazon%20EC2
+# List all Debian server AMIs or use https://wiki.debian.org/Amazon%20EC2
 aws ec2 describe-images --filters Name=architecture,Values=x86_64 Name=name,Values=*Debian* --query 'Images[].{ID:ImageId,Name:Name,Created:CreationDate}' --region us-east-1
 ```
 
-Please note that Windows desktop (i.e. Windows 10/11) are currently not supported on AWS EC2 without building a custom AMI so AWS version of OS.Lab does not support its deployment as it relies on pre-existing images. That said, [AWS os-setup.yml](aws/os-setup.yml) can be easily modified to include reference to custom AMIs.
+Please note that Windows desktop (i.e. Windows 10/11) is currently not supported on AWS EC2 without a custom AMI, so the AWS version of OS.Lab does not support its deployment, as it relies on the pre-existing images. That said, [AWS os-setup.yml](aws/os-setup.yml) can be easily modified to include a reference to custom AMIs.
 
 # Changing network ranges and deployment location
 
-Location and network ranges can be set using global variables in [Azure variables.tf](azure/variables.tf) or [AWS variables.tf](aws/variables.tf) file. A simple modification to runtime variables also allows to specify regions or network ranges as seen below:
+Location and network ranges can be set using global variables in [Azure variables.tf](azure/variables.tf) or the [AWS variables.tf](aws/variables.tf) file. A simple modification to runtime variables also allows to specify regions or network ranges as seen below:
 
 ```
 # Use default options for Azure or AWS
@@ -147,7 +147,7 @@ terraform apply -auto-approve -var="region=us-east-1a" -var="windows_server_subn
 ---
 # Firewall Configuration
 
-The following table summarises a set of firewall rules applied across the OS.LAB enviroment in default configuration. Please modify the [azure main.tf](azure/main.tf) or [azure main.tf](aws/main.tf) file to add new firewall rules as needed in  the **Firewall Rule Setup** section. 
+The following table summarises a set of firewall rules applied across the OS.LAB enviroment in default configuration. Please modify the [azure main.tf](azure/main.tf) or [azure main.tf](aws/main.tf) file to add new firewall rules, as needed, in the **Firewall Rule Setup** section. 
 
 | Rule Name | Network Security Group | Source Host | Source Port  | Destination Host | Destination Port |
 | ------------- | ------------- |  ------------- |  ------------- |  ------------- |  ------------- |
@@ -168,7 +168,7 @@ Internally the following static IP ranges are used for this enviroment in the de
 ---
 # Terraform Output - AWS
 
-Once OS.LAB is constructed, Terraform will print out actual location of the systems and associated credentials. An example output from AWS Terraform execution can be found below.
+Once OS.LAB is constructed, Terraform will print out the actual location of the systems and associated credentials. An example output from AWS Terraform execution can be found below.
 
 ```
 Network Setup:
@@ -228,7 +228,7 @@ Credentials:
 
 # Terraform Output - Azure
 
-Once OS.LAB is constructed, Terraform will print out actual location of the systems and associated credentials. An example output from Azure Terraform execution can be found below.
+Once OS.LAB is constructed, Terraform will print out the actual location of the systems and associated credentials. An example output from Azure Terraform execution can be found below.
 
 ```
 Network Setup:
