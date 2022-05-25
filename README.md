@@ -10,7 +10,7 @@ This project contains a set of **Terraform** scripts to create an lab with diffe
 
 **NOTE**: This lab is deliberately designed to be insecure. Please do not connect this system to any network you care about. 
 
-**NOTE**: Cloud providers typically limit the number of IPs, CPUs and other resources for each subscription. You might need to open up an support ticker to extend quota to deploy complete lab. Please visit specific vendor help pages to see what kind of limits are applied on the account or regions - [Azure](https://docs.microsoft.com/en-us/azure/azure-portal/supportability/quotas-overview) and [AWS](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html)
+**NOTE**: Cloud providers typically limit the number of IPs, CPUs and other resources for each subscription. You might need to open up an support ticker to extend quota to deploy complete lab. Please visit specific vendor help pages to see what kind of limits are applied on the account or regions - [Azure](https://docs.microsoft.com/en-us/azure/azure-portal/supportability/quotas-overview) and [AWS](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html).
 
 ---
 
@@ -88,11 +88,11 @@ terraform destroy -auto-approve
 start_time=`date +%s` && terraform apply -auto-approve && end_time=`date +%s` && echo execution time was `expr $end_time - $start_time` s
 ```
 
-# Deploying different OS.LAB OS version or limiting number of created hosts
+# Deploying different OS versions or limiting number of created hosts
 
-A global YAML config file, [Azure os-setup.yml](azure/os-setup.yml) or [AWS os-setup.yml](aws/os-setup.yml), set the type of operating system, SKU, AMI and VM size used for the deployment of individual VMs. 
+A global YAML config file, [Azure os-setup.yml](azure/config/os-setup.yml) or [AWS os-setup.yml](aws/config/os-setup.yml), set the type of operating system, SKU, AMI and VM size used for the deployment of individual VMs. 
 
-Commands ```az vm image list``` (Azure) or ```aws ec2 describe-images``` (AWS) can be used to identify various OS versions so that global operating system file ([Azure os-setup.yml](azure/os-setup.yml) or [AWS os-setup.yml](aws/os-setup.yml) can be modified with correspodning SKU or AMI. Examples of commands helping to identify specific AMI/SKU can be found below.
+Commands ```az vm image list``` (Azure) or ```aws ec2 describe-images``` (AWS) can be used to identify various OS versions so that global operating system file ([Azure os-setup.yml](azure/config/os-setup.yml) or [AWS os-setup.yml](aws/config/os-setup.yml) can be modified with correspodning SKU or AMI. Examples of commands helping to identify specific AMI/SKU can be found below.
 
 ```
 # Azure
