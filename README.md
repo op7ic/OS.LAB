@@ -203,14 +203,14 @@ Unix/Linux Servers:
 Remote Access:
   RDP to Windows Workstation:
 	xfreerdp /v:xxx.xxx.xxx.xxx /u:Administrator '/p:OsLabTesting0%%%' +clipboard /cert-ignore
-	[...]
+    [...]
 
 
   SSH to Linux Servers:
 	ssh -o StrictHostKeyChecking=accept-new admin@xxx.xxx.xxx.xxx -i sshkey.openssh
 	ssh -o StrictHostKeyChecking=accept-new admin@xxx.xxx.xxx.xxx -i sshkey.openssh
 	ssh -o StrictHostKeyChecking=accept-new admin@xxx.xxx.xxx.xxx -i sshkey.openssh
-	[...]
+    [...]
 
 
 Credentials:
@@ -277,7 +277,7 @@ Remote Access:
 
   RDP to Windows Server:
 	xfreerdp /v:xxx.xxx.xxx.xxx /u:oslab '/p:OsLabTesting0%%%' +clipboard /cert-ignore
-	[...]
+    [...]
 
   SSH to Linux Servers:
 	ssh -o StrictHostKeyChecking=accept-new oslab@xxx.xxx.xxx.xxx
