@@ -5,7 +5,7 @@
 
 # Purpose
 
-This project contains a set of **Terraform** scripts for AWS and Azure to create a lab with different versions of popular operating systems (OS). The goal of this project is to provide red/blue teams, developers and IT teams with the ability to deploy an ad-hoc OS lab to test attacks, payload operability, compatbility of tools and forensic artifacts on various versions of operating systems with minimal overhead.
+This project contains a set of **Terraform** scripts for AWS and Azure to create a lab with different versions of popular operating systems (OS). The goal of this project is to provide red/blue teams, developers and IT teams with the ability to deploy an ad-hoc OS testbed to test attacks, payload operability, compatbility of tools and forensic artifacts on various versions of operating systems with minimal overhead.
 
 **NOTE**: This lab is deliberately designed to be insecure. Please do not connect this system to any network you care about. 
 
