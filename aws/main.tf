@@ -287,7 +287,7 @@ Remote Access:
   xfreerdp /v:${x.public_ip} /u:Administrator '/p:${local.config_file.local_admin_credentials.password}' +clipboard /cert-ignore
   %{ endfor }
 
-  SSH to Linux Servers: 
+  SSH to Linux Servers (Usernames for specific OS can be found at https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connection-prereqs.html): 
   %{ for index, x in aws_instance.linux-servers.* ~}
   ssh -o StrictHostKeyChecking=accept-new ${x.tags_all["username"]}@${x.public_ip} -i sshkey.openssh
   %{ endfor }  
