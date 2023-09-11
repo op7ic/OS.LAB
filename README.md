@@ -67,7 +67,8 @@ sudo apt update
 sudo apt install ansible
 
 # Step 4 - Finally install python and various packages needed for remote connections and other activities
-sudo apt install python3 python3-pip pywinrm requests
+sudo apt install python3 python3-pip 
+pip3 install pywinrm requests requests-ntlm
 ```
 
 # Building and Deploying OS.LAB
